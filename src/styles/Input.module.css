@@ -1,3 +1,16 @@
 .main {
-  background: #203080;
+  padding: var(--size-2);
+  display: flex;
+}
+
+.input {
+  flex-grow: 1;
+  padding: var(--size-1) var(--size-2);
+  background: #182260;
+  color: #e0e0e0;
+  font-size: 3em;
+}
+
+.listen {
+  margin-left: var(--size-1);
 }

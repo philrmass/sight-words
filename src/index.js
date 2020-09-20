@@ -13,5 +13,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app'),
 );
-
-console.log('STARTING');
