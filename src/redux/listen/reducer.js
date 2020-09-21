@@ -1,8 +1,7 @@
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-
 import {
   INIT,
   LISTEN,
+  STOP,
 } from './actions';
 
 const defaultState = {
@@ -15,17 +14,27 @@ const defaultState = {
 export default function listenReducer(state = defaultState, action) {
   switch (action.type) {
     case INIT: {
-      const recognition = new SpeechRecognition();
-      console.log('INIT', recognition);
+      console.log('INIT', action.recognition);
       return {
         ...state,
-        recognition,
+        recognition: action.recognition,
       };
     }
     case LISTEN:
       console.log('LISTEN');
+      state.recognition.start();
+
       return {
         ...state,
+        listening: true,
+      };
+    case STOP:
+      console.log('STOP');
+      state.recognition.abort();
+
+      return {
+        ...state,
+        listening: false,
       };
     default:
       return state;

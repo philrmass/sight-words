@@ -5,11 +5,12 @@
   "homepage": "https://philrmass.github.io/sight-words",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode production",
     "lint": "eslint src/**",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "test": "jest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Phil Mass",
   "license": "MIT",

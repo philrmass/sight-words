@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/Input.module.css';
-import { init, listen } from '../redux/listen/actions';
+import { init, listen, stop } from '../redux/listen/actions';
 
 function Input({
   recognition,
@@ -12,14 +12,21 @@ function Input({
   heard,
   init,
   listen,
+  stop,
 }) {
   useEffect(() => {
     if (!recognition) {
       init();
-      console.log('i');
     }
-    console.log('e');
   }, [recognition]);
+
+  function handleListen() {
+    if (listening) {
+      stop();
+    } else {
+      listen();
+    }
+  }
 
   return (
     <main className={styles.main}>
@@ -28,9 +35,9 @@ function Input({
       </div>
       <button
         className={styles.listen}
-        onClick={() => listen()}
+        onClick={handleListen}
       >
-        Listen
+        {listening ? 'Stop' : 'Listen'}
       </button>
     </main>
   );
@@ -43,6 +50,7 @@ Input.propTypes = {
   heard: PropTypes.string.isRequired,
   init: PropTypes.func.isRequired,
   listen: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
@@ -55,6 +63,7 @@ const mapState = (state) => ({
 const mapDispatch = {
   init,
   listen,
+  stop,
 };
 
 export default connect(mapState, mapDispatch)(Input);
