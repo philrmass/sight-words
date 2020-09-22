@@ -8,6 +8,7 @@ import { startListening, stopListening } from '../redux/listen/actions';
 
 function Input({
   listening,
+  heard,
   startListening,
   stopListening,
 }) {
@@ -41,7 +42,7 @@ function Input({
   return (
     <main className={styles.main}>
       <div className={inputStyles}>
-        {'YO!'}
+        {heard}
       </div>
       {buildButton()}
     </main>
@@ -50,12 +51,14 @@ function Input({
 
 Input.propTypes = {
   listening: PropTypes.bool.isRequired,
+  heard: PropTypes.string.isRequired,
   startListening: PropTypes.func.isRequired,
   stopListening: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
   listening: state.listen.listening,
+  heard: state.listen.heard,
 });
 
 const mapDispatch = {

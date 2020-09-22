@@ -1,18 +1,19 @@
 import {
   START_LISTENING,
   STOP_LISTENING,
+  RESTART_LISTENING,
   ADD_RESULT,
 } from './actions';
 
 const defaultState = {
   recognition: null,
   listening: false,
+  heard: '',
 };
 
 export default function listenReducer(state = defaultState, action) {
   switch (action.type) {
     case START_LISTENING: {
-      console.log('START_LISTENING');
       return {
         ...state,
         recognition: action.recognition,
@@ -20,17 +21,23 @@ export default function listenReducer(state = defaultState, action) {
       };
     }
     case STOP_LISTENING:
-      console.log('STOP_LISTENING');
-      state.recognition.abort();
       state.recognition.onresult = undefined;
       state.recognition.onend = undefined;
+      state.recognition.abort();
 
       return {
         ...state,
+        recognition: null,
         listening: false,
       };
+    case RESTART_LISTENING:
+      if (state.listening) {
+        state.recognition.start();
+      }
+      return {
+        state,
+      };
     case ADD_RESULT:
-      console.log('ADD_RESULT', action.text);
       return {
         ...state,
         heard: action.text,

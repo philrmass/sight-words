@@ -11,6 +11,7 @@
   background: var(--bg-disabled);
   color: var(--color-disabled);
   font-size: var(--size-input);
+  overflow: hidden;
 }
 
 .listening {
