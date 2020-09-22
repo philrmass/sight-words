@@ -1,40 +1,40 @@
 import {
-  INIT,
-  LISTEN,
-  STOP,
+  START_LISTENING,
+  STOP_LISTENING,
+  ADD_RESULT,
 } from './actions';
 
 const defaultState = {
   recognition: null,
   listening: false,
-  status: 'not listening',
-  heard: '',
 };
 
 export default function listenReducer(state = defaultState, action) {
   switch (action.type) {
-    case INIT: {
-      console.log('INIT', action.recognition);
+    case START_LISTENING: {
+      console.log('START_LISTENING');
       return {
         ...state,
         recognition: action.recognition,
-      };
-    }
-    case LISTEN:
-      console.log('LISTEN');
-      state.recognition.start();
-
-      return {
-        ...state,
         listening: true,
       };
-    case STOP:
-      console.log('STOP');
+    }
+    case STOP_LISTENING:
+      console.log('STOP_LISTENING');
       state.recognition.abort();
+      state.recognition.onresult = undefined;
+      state.recognition.onend = undefined;
 
       return {
         ...state,
         listening: false,
+      };
+    case ADD_RESULT:
+      console.log('ADD_RESULT', action.text);
+      return {
+        ...state,
+        heard: action.text,
+        confidence: action.confidence,
       };
     default:
       return state;
