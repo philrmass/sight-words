@@ -29,3 +29,14 @@
 .listen:hover {
   background: var(--bg-hover);
 }
+
+.word {
+  display: inline-block;
+  white-space: pre;
+  cursor: pointer;
+}
+
+.blank {
+  display: inline-block;
+  white-space: pre;
+}

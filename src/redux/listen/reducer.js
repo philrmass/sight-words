@@ -35,7 +35,7 @@ export default function listenReducer(state = defaultState, action) {
         state.recognition.start();
       }
       return {
-        state,
+        ...state,
       };
     case ADD_RESULT:
       return {

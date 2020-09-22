@@ -12,6 +12,10 @@ function Input({
   startListening,
   stopListening,
 }) {
+  function pickWord(word) {
+    console.log(`[${word}]`);
+  }
+
   function buildButton() {
     if (listening) {
       return (
@@ -34,6 +38,32 @@ function Input({
     );
   }
 
+  function buildWords() {
+    const words = heard.split(' ');
+    const all = words.reduce((all, word) => {
+      if (word) {
+        return [...all, word, ' '];
+      }
+      return all;
+    }, []);
+
+    return all.map((word, index) => {
+      const isBlank = word === ' ';
+      const handleClick = isBlank ? undefined : () => pickWord(word);
+      const divClass = isBlank ? styles.blank : styles.word;
+
+      return (
+        <div
+          key={index}
+          className={divClass}
+          onClick={handleClick}
+        >
+          {word}
+        </div>
+      );
+    });
+  }
+
   const inputStyles = getStyles({
     [styles.input]: true,
     [styles.listening]: listening,
@@ -42,7 +72,7 @@ function Input({
   return (
     <main className={styles.main}>
       <div className={inputStyles}>
-        {heard}
+        {buildWords()}
       </div>
       {buildButton()}
     </main>
