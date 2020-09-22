@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/Input.module.css';
+import { getStyles } from '../utilities/styles';
 import { init, listen, stop } from '../redux/listen/actions';
 
 function Input({
@@ -28,10 +29,15 @@ function Input({
     }
   }
 
+  const inputStyles = getStyles({
+    [styles.input]: true,
+    [styles.listening]: listening,
+  });
+
   return (
     <main className={styles.main}>
-      <div className={styles.input}>
-        {heard || status}
+      <div className={inputStyles}>
+        {heard}
       </div>
       <button
         className={styles.listen}

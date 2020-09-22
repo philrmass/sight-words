@@ -5,12 +5,26 @@
 
 .input {
   flex-grow: 1;
+  height: calc(1.5 * var(--size-input));
   padding: var(--size-1) var(--size-2);
-  background: #182260;
-  color: #e0e0e0;
-  font-size: 3em;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  background: var(--bg-disabled);
+  color: var(--color-disabled);
+  font-size: var(--size-input);
+}
+
+.listening {
+  background: var(--bg-accent);
+  color: var(--color-accent);
 }
 
 .listen {
-  margin-left: var(--size-1);
+  min-width: 70px;
+  padding: var(--size-1);
+  border: 1px solid var(--border);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.listen:hover {
+  background: var(--bg-hover);
 }
