@@ -2,32 +2,63 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addWords } from '../redux/words/actions';
+import styles from '../styles/App.module.css';
+import { saveData } from '../utilities/file';
+import { setAdding } from '../redux/words/actions';
 import Input from './Input';
 
-function App({ words, addWords }) {
-  return (
-    <div>
-      <Input />
-      <button onClick={() => addWords([])}>Add</button>
-      <div>
-        {JSON.stringify(words)}
+function App({
+  words,
+  adding,
+  setAdding,
+}) {
+  function buildWords() {
+    return words.map((item) => (
+      <div
+        key={`${item.level}-${item.word}`}
+        className={styles.word}>
+        {item.word}
       </div>
-    </div>
+    ));
+  }
+
+  return (
+    <main className={styles.main}>
+      <Input />
+      <div className={styles.buttons}>
+        <button
+          className={styles.button}
+          onClick={() => setAdding(!adding)}
+        >
+          Add
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => saveData('words.json', words)}
+        >
+          Save
+        </button>
+      </div>
+      <div className={styles.words}>
+        {buildWords()}
+      </div>
+    </main>
   );
 }
 
 App.propTypes = {
   words: PropTypes.arrayOf(PropTypes.object).isRequired,
-  addWords: PropTypes.func.isRequired,
+  adding: PropTypes.bool.isRequired,
+  setAdding: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
   words: state.words.all,
+  adding: state.words.adding,
 });
 
 const mapDispatch = {
-  addWords,
+  setAdding,
 };
 
 export default connect(mapState, mapDispatch)(App);

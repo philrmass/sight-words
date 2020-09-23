@@ -19,6 +19,11 @@
   color: var(--color-accent);
 }
 
+.adding {
+  background: var(--bg-active);
+  color: var(--color-accent);
+}
+
 .listen {
   min-width: 70px;
   padding: var(--size-1);

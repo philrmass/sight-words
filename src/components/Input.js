@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/Input.module.css';
 import { getStyles } from '../utilities/styles';
 import { startListening, stopListening } from '../redux/listen/actions';
+import { addWords } from '../redux/words/actions';
 
 function Input({
   listening,
   heard,
+  adding,
   startListening,
   stopListening,
+  addWords,
 }) {
+  //??? remove
+  useEffect(() => {
+    startListening();
+  }, []);
+
   function pickWord(word) {
-    console.log(`[${word}]`);
+    if (adding) {
+      console.log(`[${word}]`);
+      addWords([word]);
+    }
+    console.log('NO-ADD');
   }
 
   function buildButton() {
@@ -67,6 +79,7 @@ function Input({
   const inputStyles = getStyles({
     [styles.input]: true,
     [styles.listening]: listening,
+    [styles.adding]: adding,
   });
 
   return (
@@ -82,18 +95,22 @@ function Input({
 Input.propTypes = {
   listening: PropTypes.bool.isRequired,
   heard: PropTypes.string.isRequired,
+  adding: PropTypes.bool.isRequired,
   startListening: PropTypes.func.isRequired,
   stopListening: PropTypes.func.isRequired,
+  addWords: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
   listening: state.listen.listening,
   heard: state.listen.heard,
+  adding: state.words.adding,
 });
 
 const mapDispatch = {
   startListening,
   stopListening,
+  addWords,
 };
 
 export default connect(mapState, mapDispatch)(Input);

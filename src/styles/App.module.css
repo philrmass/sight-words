@@ -1,0 +1,21 @@
+.main {
+}
+
+.buttons {
+}
+
+.button {
+  margin: var(--size-0);
+  padding: var(--size-0) var(--size-1);
+  border: 1px solid var(--border);
+}
+
+.words {
+  font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.word {
+  padding: var(--size-0) var(--size-2);
+}
