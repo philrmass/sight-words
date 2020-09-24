@@ -31,7 +31,7 @@ export default function wordsReducer(state = defaultState, action) {
     case ADD_WORDS: {
       const items = action.words.map((word) => ({
         word,
-        level: 1,
+        level: 3,
       }));
       //const fil = state.all.filter((item) => !item.word);
       //const all = [...fil, ...items];
