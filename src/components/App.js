@@ -13,7 +13,12 @@ function App({
   setAdding,
 }) {
   function buildWords() {
-    return words.map((item) => (
+    //??? restore
+    let yep = words;
+    if (words.length > 50) {
+      yep = words.slice(-50);
+    }
+    return yep.map((item) => (
       <div
         key={`${item.level}-${item.word}`}
         className={styles.word}>

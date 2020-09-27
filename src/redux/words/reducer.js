@@ -31,14 +31,11 @@ export default function wordsReducer(state = defaultState, action) {
     case ADD_WORDS: {
       const items = action.words.map((word) => ({
         word,
-        level: 3,
+        level: 9,
       }));
-      //const fil = state.all.filter((item) => !item.word);
-      //const all = [...fil, ...items];
       const all = [...state.all, ...items];
       localStorage.signWordsAll = JSON.stringify(all);
       console.log('ADD', action.words);
-      //??? json stringify and store
       return {
         ...state,
         all,
