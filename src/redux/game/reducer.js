@@ -7,20 +7,27 @@ import {
 
 const defaultState = {
   isPlaying: false,
+  remaining: [],
   current: [],
   matched: [],
+  done: [],
 };
+
+const gameSize = 10;
 
 export default function wordsReducer(state = defaultState, action) {
   switch (action.type) {
-    case START_GAME:
-      console.log('START_GAME');
+    case START_GAME: {
+      const current = action.words.slice(0, gameSize);
+      const remaining = action.words.slice(gameSize);
       return {
         ...state,
         isPlaying: true,
+        remaining,
+        current,
       };
+    }
     case STOP_GAME:
-      console.log('STOP_GAME');
       return {
         ...state,
         isPlaying: false,

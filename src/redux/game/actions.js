@@ -3,9 +3,10 @@ export const STOP_GAME = 'STOP_GAME';
 export const SET_MATCHED = 'SET_MATCHED';
 export const CLEAR_MATCHED = 'CLEAR_MATCHED';
 
-export function startGame() {
+export function startGame(words) {
   return {
     type: START_GAME,
+    words,
   };
 }
 

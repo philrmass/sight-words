@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles/Input.module.css';
 import { getStyles } from '../utilities/styles';
+import { setMatched, clearMatched } from '../redux/game/actions';
 import { startListening, stopListening } from '../redux/listen/actions';
 import { addWords } from '../redux/words/actions';
 
@@ -11,13 +12,22 @@ function Input({
   listening,
   heard,
   adding,
+  isPlaying,
+  current,
+  matched,
   startListening,
   stopListening,
   addWords,
+  setMatched,
+  clearMatched,
 }) {
   //??? remove
   useEffect(() => {
     startListening();
+  }, []);
+
+  //??? check words
+  useEffect(() => {
   }, []);
 
   function pickWord(word) {
@@ -105,12 +115,17 @@ const mapState = (state) => ({
   listening: state.listen.listening,
   heard: state.listen.heard,
   adding: state.words.adding,
+  isPlaying: state.game.isPlaying,
+  current: state.game.current,
+  matched: state.game.matched,
 });
 
 const mapDispatch = {
   startListening,
   stopListening,
   addWords,
+  setMatched,
+  clearMatched,
 };
 
 export default connect(mapState, mapDispatch)(Input);

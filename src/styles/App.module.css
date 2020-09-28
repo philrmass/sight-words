@@ -8,6 +8,7 @@
   margin: var(--size-0);
   padding: var(--size-0) var(--size-1);
   border: 1px solid var(--border);
+  border-radius: var(--border-radius);
 }
 
 .words {

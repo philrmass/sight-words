@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Words.module.css';
 
 function Words({
-  words,
+  current,
 }) {
   function buildWords() {
-    return words.map((item) => (
+    return current.map((item) => (
       <div
         key={`${item.level}-${item.word}`}
         className={styles.word}>
@@ -27,11 +27,11 @@ function Words({
 }
 
 Words.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.object).isRequired,
+  current: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapState = (state) => ({
-  words: state.words.all,
+  current: state.game.current,
 });
 
 export default connect(mapState)(Words);

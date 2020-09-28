@@ -1,4 +1,4 @@
- :root {
+:root {
   --size-0: 4px;
   --size-1: 8px;
   --size-2: 16px;
@@ -12,23 +12,28 @@
   --bg-hover: #eee;
   --color-disabled: #555;
   --color-accent: #f0f0f0;
- }
+}
 
- * {
-   box-sizing: border-box;
- }
+* {
+  box-sizing: border-box;
+}
 
-  html {
-   height: 100%;
-   width: 100%;
-   margin: 0;
-   padding: 0;
-  }
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  body {
-   height: 100%;
-   width: 100%;
-   margin: 0;
-   padding: 0;
-   font-family: Helvetica, sans-serif;
- }
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, sans-serif;
+}
+
+button:disabled {
+  background: var(--bg-disabled);
+  color: var(--color-disabled);
+}

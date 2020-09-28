@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/App.module.css';
 import { saveData } from '../utilities/file';
 import { setAdding } from '../redux/words/actions';
+import Controls from './Controls';
 import Input from './Input';
 import Words from './Words';
 
@@ -40,6 +41,7 @@ function App({
   return (
     <main className={styles.main}>
       <Input />
+      <Controls />
       {buildEditUi()}
       <Words />
     </main>
