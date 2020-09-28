@@ -6,30 +6,20 @@ import styles from '../styles/App.module.css';
 import { saveData } from '../utilities/file';
 import { setAdding } from '../redux/words/actions';
 import Input from './Input';
+import Words from './Words';
 
 function App({
   words,
   adding,
   setAdding,
 }) {
-  function buildWords() {
-    //??? restore
-    let yep = words;
-    if (words.length > 50) {
-      yep = words.slice(-50);
+  function buildEditUi() {
+    const isEditing = false;
+    if (!isEditing) {
+      return null;
     }
-    return yep.map((item) => (
-      <div
-        key={`${item.level}-${item.word}`}
-        className={styles.word}>
-        {item.word}
-      </div>
-    ));
-  }
 
-  return (
-    <main className={styles.main}>
-      <Input />
+    return (
       <div className={styles.buttons}>
         <button
           className={styles.button}
@@ -44,9 +34,14 @@ function App({
           Save
         </button>
       </div>
-      <div className={styles.words}>
-        {buildWords()}
-      </div>
+    );
+  }
+
+  return (
+    <main className={styles.main}>
+      <Input />
+      {buildEditUi()}
+      <Words />
     </main>
   );
 }
