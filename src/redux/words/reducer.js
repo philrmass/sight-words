@@ -1,29 +1,19 @@
+import { getObject, setObject } from '../../utilities/storage';
+import defaultWords from '../../data/words.json';
+
 import {
   SET_ADDING,
   ADD_WORDS,
 } from './actions';
 
-function validateWords(stored) {
-  if (!stored) {
-    return [];
-  }
-
-  try {
-    return JSON.parse(stored);
-  } catch (error) {
-    return [];
-  }
-}
-
 const defaultState = {
   adding: false,
-  all: validateWords(localStorage.signWordsAll),
+  all: getObject('sightWordsAll', defaultWords),
 };
 
 export default function wordsReducer(state = defaultState, action) {
   switch (action.type) {
     case SET_ADDING:
-      console.log('SET_ADDING', action.adding);
       return {
         ...state,
         adding: action.adding,
@@ -34,8 +24,7 @@ export default function wordsReducer(state = defaultState, action) {
         level: 9,
       }));
       const all = [...state.all, ...items];
-      localStorage.signWordsAll = JSON.stringify(all);
-      console.log('ADD', action.words);
+      setObject('sightWordsAll', all);
       return {
         ...state,
         all,

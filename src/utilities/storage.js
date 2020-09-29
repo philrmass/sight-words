@@ -20,3 +20,21 @@ export function useLocalStorage(key, initialValue) {
 
   return [value, setValue];
 }
+
+export function setObject(key, value) {
+  localStorage[key] = JSON.stringify(value);
+}
+
+export function getObject(key, defaultValue) {
+  const value = localStorage[key];
+
+  if (!value) {
+    return defaultValue;
+  }
+
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return defaultValue;
+  }
+}

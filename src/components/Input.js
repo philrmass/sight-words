@@ -14,7 +14,6 @@ function Input({
   adding,
   isPlaying,
   current,
-  matched,
   startListening,
   stopListening,
   addWords,
@@ -26,9 +25,28 @@ function Input({
     startListening();
   }, []);
 
-  //??? check words
   useEffect(() => {
-  }, []);
+    if (isPlaying) {
+      const found = current.reduce((found, item) => {
+        const match = heard.some((_word) => {
+          const word = _word.toLowerCase();
+          return (item.word === word) ||
+            (item.matches && item.matches.some((match) => match === word));
+        });
+        if (match) {
+          return [...found, item.word];
+        }
+        return found;
+      }, []);
+      if (found.length > 0) {
+        console.log('FND', found);
+        setMatched(found);
+        setTimeout(() => {
+          clearMatched();
+        }, 1000);
+      }
+    }
+  }, [current, heard]);
 
   function pickWord(word) {
     if (adding) {
@@ -61,8 +79,7 @@ function Input({
   }
 
   function buildWords() {
-    const words = heard.split(' ');
-    const all = words.reduce((all, word) => {
+    const all = heard.reduce((all, word) => {
       if (word) {
         return [...all, word, ' '];
       }
@@ -72,7 +89,7 @@ function Input({
     return all.map((word, index) => {
       const isBlank = word === ' ';
       const handleClick = isBlank ? undefined : () => pickWord(word);
-      const divClass = isBlank ? styles.blank : styles.word;
+      let divClass = isBlank ? styles.blank : styles.word;
 
       return (
         <div
@@ -104,11 +121,15 @@ function Input({
 
 Input.propTypes = {
   listening: PropTypes.bool.isRequired,
-  heard: PropTypes.string.isRequired,
+  heard: PropTypes.arrayOf(PropTypes.string).isRequired,
   adding: PropTypes.bool.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  current: PropTypes.arrayOf(PropTypes.object).isRequired,
   startListening: PropTypes.func.isRequired,
   stopListening: PropTypes.func.isRequired,
   addWords: PropTypes.func.isRequired,
+  setMatched: PropTypes.func.isRequired,
+  clearMatched: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
@@ -117,7 +138,6 @@ const mapState = (state) => ({
   adding: state.words.adding,
   isPlaying: state.game.isPlaying,
   current: state.game.current,
-  matched: state.game.matched,
 });
 
 const mapDispatch = {

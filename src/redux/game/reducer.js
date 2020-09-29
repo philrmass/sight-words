@@ -33,21 +33,22 @@ export default function wordsReducer(state = defaultState, action) {
         isPlaying: false,
       };
     case SET_MATCHED: {
-      console.log('SET_MATCHED');
-      const current = state.current.filter((item) => !state.matched.includes(item.word));
       return {
         ...state,
-        current,
         matched: action.matched,
       };
     }
     case CLEAR_MATCHED: {
-      console.log('CLEAR_MATCHED');
-      const current = state.current.filter((item) => !state.matched.includes(item.word));
+      const filtered = state.current.filter((item) => !state.matched.includes(item.word));
+      const size = gameSize - filtered.length;
+      const current = [...filtered, ...state.remaining.slice(0, size)];
+      const remaining = state.remaining.slice(size);
       return {
         ...state,
         current,
         matched: [],
+        remaining,
+        done: state.matched,
       };
     }
     default:

@@ -8,7 +8,7 @@ import {
 const defaultState = {
   recognition: null,
   listening: false,
-  heard: '',
+  heard: [],
 };
 
 export default function listenReducer(state = defaultState, action) {
@@ -40,7 +40,7 @@ export default function listenReducer(state = defaultState, action) {
     case ADD_RESULT:
       return {
         ...state,
-        heard: action.text,
+        heard: action.text.split(' '),
         confidence: action.confidence,
       };
     default:
